@@ -4,5 +4,6 @@
     <string name="app_name">Trivial</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="Titulo_play">PLAY GAME</string>
 
 </resources>
