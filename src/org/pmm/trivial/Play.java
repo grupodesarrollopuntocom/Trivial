@@ -2,6 +2,8 @@ package org.pmm.trivial;
 
 import java.util.ArrayList;
 
+
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -10,9 +12,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class Play extends Activity {
-	private TextView tv1, tv2;
+	private TextView tvpregunta, tvscore;
 	private Button bt1, bt2, bt3, bt4;
 	private ProgressBar pgb;
+	private int posicion, respcorrecta;
 	
 
 	public ArrayList<Question> preguntas;
@@ -27,8 +30,8 @@ public class Play extends Activity {
 		cargaPreguntas();
 		
 
-		tv1 = (TextView)findViewById(R.id.miTextoPregunta);
-		tv2 = (TextView)findViewById(R.id.miTextoScore);
+		tvpregunta = (TextView)findViewById(R.id.miTextoPregunta);
+		tvscore = (TextView)findViewById(R.id.miTextoScore);
 		bt1 = (Button)findViewById(R.id.miBoton1);
 		bt2 = (Button)findViewById(R.id.miBoton2);
 		bt3 = (Button)findViewById(R.id.miBoton3);
@@ -53,6 +56,29 @@ public class Play extends Activity {
 		preguntas.add(new Question("Literatura", "¿Quién fue el autor del Lazarillo de Tormes?", new String[]{"Miguel de Cervantes","Anónimo","Pio Baroja","Federico García Lrca"}, 2, 1));
 		preguntas.add(new Question("Informatica", "¿Qué nuevo Sistema Operativo va a lanzar para moviles en 2013?", new String[]{"Ubuntu Phone","Android Cake","Neo Samsung ","Xtream"}, 1, 2));
 
+	}
+	
+	
+	//Metodo para cargar la siguiente pregunta en los botones
+	private void cargaSiguientePregunta(){
+		
+		String listarespuestas[];	//creo un array con las preguntas	
+		Question q;
+		
+		if(posicion >= 0 && posicion < preguntas.size()){
+		
+		q = preguntas.get(posicion);//devuelve la posicion del num de pregunta
+		listarespuestas = q.getAnswers();//LLamo a la pregunta y respuestas de la clase question
+		
+		bt1.setText(listarespuestas[0]);
+		bt2.setText(listarespuestas[1]);
+		bt3.setText(listarespuestas[2]);
+		bt4.setText(listarespuestas[3]);
+		
+		respcorrecta = q.getRightAnswer();//le digo cual es la respuesta correcta
+		
+		}
+		
 	}
 
 }
