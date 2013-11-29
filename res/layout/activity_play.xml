@@ -20,7 +20,7 @@
         >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/titulo"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="left"
