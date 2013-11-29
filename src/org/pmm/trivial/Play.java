@@ -1,17 +1,27 @@
 package org.pmm.trivial;
 
+
 import java.util.ArrayList;
 
 
 
+
+import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import android.widget.ProgressBar;
+
+
+
 public class Play extends Activity {
+
 	private TextView tvpregunta, tvscore;
 	private Button bt1, bt2, bt3, bt4;
 	private ProgressBar pgb;
@@ -19,11 +29,18 @@ public class Play extends Activity {
 	
 
 	public ArrayList<Question> preguntas;
+
+	
+	ProgressBar barraTiempo;
+	private HiloProgreso hilo;
+	int progreso;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play);
+
 
 		
 		preguntas = new ArrayList<Question>();
@@ -38,7 +55,44 @@ public class Play extends Activity {
 		bt4 = (Button)findViewById(R.id.miBoton4);
 		pgb = (ProgressBar)findViewById(R.id.miProgressbar);
 
+
+		
+		barraTiempo=(ProgressBar)findViewById(R.id.miProgressbar);
+		cargaSiguientePregunta();
+		hilo = new HiloProgreso();
+		hilo.execute();
+
 	}
+	
+	public class HiloProgreso extends AsyncTask<Void, Void, Void>{
+		protected void onPostExecute(Void result){
+			
+		}
+		@Override
+		protected void onPreExecute() {
+			barraTiempo.setMax(1000);
+			
+		}
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			barraTiempo.incrementProgressBy(100);
+		}
+		
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			while(!isCancelled()){
+				try{
+					Thread.sleep(1000);
+					publishProgress();
+				}catch(InterruptedException e){
+					
+				}					
+			}
+			return null;
+		}
+		
+}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,6 +124,7 @@ public class Play extends Activity {
 		q = preguntas.get(posicion);//devuelve la posicion del num de pregunta
 		listarespuestas = q.getAnswers();//LLamo a la pregunta y respuestas de la clase question
 		
+		tvpregunta.setText(q.getQuestionText());
 		bt1.setText(listarespuestas[0]);
 		bt2.setText(listarespuestas[1]);
 		bt3.setText(listarespuestas[2]);
