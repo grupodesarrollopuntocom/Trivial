@@ -9,7 +9,11 @@ package org.pmm.trivial;
 
 public final class R {
     public static final class anim {
-        public static final int animadotitulo=0x7f040000;
+        public static final int animadointerrog1=0x7f040000;
+        public static final int animadointerrog2=0x7f040001;
+        public static final int animadointerrog3=0x7f040002;
+        public static final int animadologo=0x7f040003;
+        public static final int animadotitulo=0x7f040004;
     }
     public static final class attr {
     }
@@ -36,10 +40,10 @@ public final class R {
         public static final int LinearLayout1=0x7f090000;
         public static final int Time=0x7f090005;
         public static final int action_settings=0x7f09000f;
-        public static final int imageView2=0x7f090003;
-        public static final int imageView3=0x7f09000c;
-        public static final int imageView4=0x7f09000d;
-        public static final int imageView5=0x7f09000e;
+        public static final int interrogante1=0x7f09000c;
+        public static final int interrogante2=0x7f09000d;
+        public static final int interrogante3=0x7f090003;
+        public static final int logo=0x7f09000e;
         public static final int miBoton1=0x7f090008;
         public static final int miBoton2=0x7f090009;
         public static final int miBoton3=0x7f09000a;

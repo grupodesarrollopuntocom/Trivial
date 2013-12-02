@@ -17,7 +17,7 @@
         android:src="@drawable/trivialpursuitlogo" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/interrogante3"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignRight="@+id/titulo"
@@ -25,23 +25,23 @@
         android:src="@drawable/interrogante1" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/interrogante1"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignTop="@+id/interrogante3"
         android:src="@drawable/interrogacion2" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/interrogante2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView3"
+        android:layout_alignTop="@+id/interrogante3"
+        android:layout_toRightOf="@+id/interrogante1"
         android:src="@drawable/interrogacion3" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"

@@ -2,13 +2,18 @@
     android:shareInterpolator="false" >
 	<alpha 
 	    android:startOffset="1000"
-	    android:duration="5000"
+	    android:duration="3000"
 	    android:fromAlpha="0"
 	    android:toAlpha="1"
 	    android:fillAfter="true"
 	    />
 
-    
+     <rotate 
+        android:fromDegrees="0"
+        android:toDegrees="2160"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="3000"/>
    
     
 </set>
