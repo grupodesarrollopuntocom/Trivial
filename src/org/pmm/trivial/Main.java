@@ -2,6 +2,7 @@ package org.pmm.trivial;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ public class Main extends Activity {
 	private String[] datos;
 	private ArrayAdapter<String> adaptador;
 	private ListView lista;
+	private Intent intent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +31,16 @@ public class Main extends Activity {
 					long id) {
 				switch(position){
 				case 0:
-					//
+					intent = new Intent(Main.this, Play.class);
 				break;
 				case 1:
-					//
+					intent = new Intent(Main.this, Score.class);
 				break;
 				case 2:	
-					//
+					intent = new Intent(Main.this, Credits.class	);
 				break;
 				}
+				startActivity(intent);
 				
 				
 			}

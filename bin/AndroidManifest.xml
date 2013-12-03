@@ -30,6 +30,15 @@
             android:name="org.pmm.trivial.Main"
             android:label="@string/title_activity_splash" >
         </activity>
+        <activity
+            android:name="org.pmm.trivial.Score"
+            android:label="@string/title_activity_score" >
+        </activity>
+        <activity
+            android:name="org.pmm.trivial.Credits"
+            android:label="@string/title_activity_score" >
+        </activity>
+        
     </application>
 
 </manifest>

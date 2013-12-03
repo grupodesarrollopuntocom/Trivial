@@ -8,5 +8,6 @@
     <string name="score">Score: 0</string>
     <string name="time">Time</string>
     <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_score">Score</string>
 
 </resources>
