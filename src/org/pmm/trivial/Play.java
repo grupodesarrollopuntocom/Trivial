@@ -10,7 +10,11 @@ import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -33,7 +37,8 @@ public class Play extends Activity {
 	
 	ProgressBar barraTiempo;
 	private HiloProgreso hilo;
-	int progreso;
+	int puntos,puntosGenerales;
+	boolean tiempo;
 
 	
 	@Override
@@ -41,11 +46,9 @@ public class Play extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play);
 
-
-		
 		preguntas = new ArrayList<Question>();
 		cargaPreguntas();
-		
+		posicion=0;
 
 		tvpregunta = (TextView)findViewById(R.id.miTextoPregunta);
 		tvscore = (TextView)findViewById(R.id.miTextoScore);
@@ -54,14 +57,79 @@ public class Play extends Activity {
 		bt3 = (Button)findViewById(R.id.miBoton3);
 		bt4 = (Button)findViewById(R.id.miBoton4);
 		pgb = (ProgressBar)findViewById(R.id.miProgressbar);
-
-
-		
 		barraTiempo=(ProgressBar)findViewById(R.id.miProgressbar);
+		
+		puntosGenerales=0;
+		
 		cargaSiguientePregunta();
-		hilo = new HiloProgreso();
-		hilo.execute();
-
+		
+		bt1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(respcorrecta==0)
+					bt1.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+				else
+					bt1.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+				tiempo=false;
+				try{
+					Thread.sleep(500);
+					Thread.sleep(2000);
+				}catch(InterruptedException e){	
+				}
+				puntosGenerales+=puntos;
+				cargaSiguientePregunta();
+			}
+		});
+		bt2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(respcorrecta==1)
+					bt2.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+				else
+					bt2.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+				tiempo=false;
+				try{
+					Thread.sleep(500);
+					Thread.sleep(2000);
+				}catch(InterruptedException e){	
+				}	
+				puntosGenerales+=puntos;
+				cargaSiguientePregunta();
+				
+			}
+		});
+		bt3.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(respcorrecta==2)
+					bt3.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+				else
+					bt3.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+				tiempo=false;
+				try{
+					Thread.sleep(2000);
+				}catch(InterruptedException e){	
+				}	
+				puntosGenerales+=puntos;
+				cargaSiguientePregunta();
+			}
+		});
+		bt4.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(respcorrecta==3)
+					bt4.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+				else
+					bt4.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+				tiempo=false;
+				try{
+					Thread.sleep(2000);
+				}catch(InterruptedException e){	
+				}	
+				puntosGenerales+=puntos;
+				cargaSiguientePregunta();
+			}
+		});
 	}
 	
 	public class HiloProgreso extends AsyncTask<Void, Void, Void>{
@@ -71,7 +139,7 @@ public class Play extends Activity {
 		@Override
 		protected void onPreExecute() {
 			barraTiempo.setMax(1000);
-			
+			barraTiempo.setProgress(0);
 		}
 		@Override
 		protected void onProgressUpdate(Void... values) {
@@ -80,10 +148,11 @@ public class Play extends Activity {
 		
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			while(!isCancelled()){
+			while(!isCancelled()&&tiempo){
 				try{
 					Thread.sleep(1000);
 					publishProgress();
+					puntos-=200;
 				}catch(InterruptedException e){
 					
 				}					
@@ -105,34 +174,41 @@ public class Play extends Activity {
 	//Metodo para cargar las preguntas en el arraylist
 	public void cargaPreguntas(){
 		
-		preguntas.add(new Question("Historia", "¿En qué año finalizó la Guerra Civil Española?", new String[]{"1929","1932","1939","1937"}, 3, 1));
-		preguntas.add(new Question("Deportes", "¿Cuál fue el tenista que lideró más tiempo el titulo de número uno?", new String[]{"Pete Sampras","André Agassi","Rafael Nadal","Roger Federer"}, 4, 2));
-		preguntas.add(new Question("Literatura", "¿Quién fue el autor del Lazarillo de Tormes?", new String[]{"Miguel de Cervantes","Anónimo","Pio Baroja","Federico García Lrca"}, 2, 1));
-		preguntas.add(new Question("Informatica", "¿Qué nuevo Sistema Operativo va a lanzar para moviles en 2013?", new String[]{"Ubuntu Phone","Android Cake","Neo Samsung ","Xtream"}, 1, 2));
+		preguntas.add(new Question("Historia", "¿En qué año finalizó la Guerra Civil Española?", new String[]{"1929","1932","1939","1937"}, 2, 0));
+		preguntas.add(new Question("Deportes", "¿Cuál fue el tenista que lideró más tiempo el titulo de número uno?", new String[]{"Pete Sampras","André Agassi","Rafael Nadal","Roger Federer"}, 3, 1));
+		preguntas.add(new Question("Literatura", "¿Quién fue el autor del Lazarillo de Tormes?", new String[]{"Miguel de Cervantes","Anónimo","Pio Baroja","Federico García Lrca"}, 1, 0));
+		preguntas.add(new Question("Informatica", "¿Qué nuevo Sistema Operativo va a lanzar para moviles en 2013?", new String[]{"Ubuntu Phone","Android Cake","Neo Samsung ","Xtream"}, 0, 1));
 
 	}
 	
 	
 	//Metodo para cargar la siguiente pregunta en los botones
 	private void cargaSiguientePregunta(){
-		
+		this.puntos=2000;
+		this.tiempo=true;
 		String listarespuestas[];	//creo un array con las preguntas	
 		Question q;
-		
-		if(posicion >= 0 && posicion < preguntas.size()){
 		
 		q = preguntas.get(posicion);//devuelve la posicion del num de pregunta
 		listarespuestas = q.getAnswers();//LLamo a la pregunta y respuestas de la clase question
 		
+		tvscore.setText(Integer.toString(puntosGenerales));
 		tvpregunta.setText(q.getQuestionText());
 		bt1.setText(listarespuestas[0]);
 		bt2.setText(listarespuestas[1]);
 		bt3.setText(listarespuestas[2]);
 		bt4.setText(listarespuestas[3]);
+		bt1.getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
+		bt2.getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
+		bt3.getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
+		bt4.getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
 		
 		respcorrecta = q.getRightAnswer();//le digo cual es la respuesta correcta
 		
-		}
+		hilo = new HiloProgreso();
+		hilo.execute();
+		
+		posicion++;
 		
 	}
 
