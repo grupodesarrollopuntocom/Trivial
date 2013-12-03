@@ -26,6 +26,10 @@
             android:name="org.pmm.trivial.Play"
             android:label="@string/title_activity_splash" >
         </activity>
+        <activity
+            android:name="org.pmm.trivial.Main"
+            android:label="@string/title_activity_splash" >
+        </activity>
     </application>
 
 </manifest>
