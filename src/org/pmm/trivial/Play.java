@@ -10,6 +10,9 @@ import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.view.Menu;
@@ -30,6 +33,7 @@ public class Play extends Activity {
 	private Button bt1, bt2, bt3, bt4;
 	private ProgressBar pgb;
 	private int posicion, respcorrecta;
+	private AlertDialog.Builder dialog;
 	
 
 	public ArrayList<Question> preguntas;
@@ -66,68 +70,80 @@ public class Play extends Activity {
 		bt1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if(respcorrecta==0)
+				if(respcorrecta==0){
 					bt1.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-				else
+					acierto();
+				}else{
 					bt1.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+					fallo();
+				}
 				tiempo=false;
 				try{
-					Thread.sleep(500);
-					Thread.sleep(2000);
+					
+					Thread.sleep(1000);
 				}catch(InterruptedException e){	
 				}
 				puntosGenerales+=puntos;
-				cargaSiguientePregunta();
+				//cargaSiguientePregunta();
 			}
 		});
 		bt2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if(respcorrecta==1)
+				if(respcorrecta==1){
 					bt2.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-				else
+					acierto();
+				}else{
 					bt2.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
-				tiempo=false;
+					fallo();
+				}
+					tiempo=false;
 				try{
-					Thread.sleep(500);
-					Thread.sleep(2000);
+					
+					Thread.sleep(1000);
 				}catch(InterruptedException e){	
 				}	
 				puntosGenerales+=puntos;
-				cargaSiguientePregunta();
+				//cargaSiguientePregunta();
 				
 			}
 		});
 		bt3.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if(respcorrecta==2)
+				if(respcorrecta==2){
 					bt3.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-				else
+					acierto();
+				}else{
 					bt3.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
-				tiempo=false;
+					fallo();
+				}
+					tiempo=false;
 				try{
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				}catch(InterruptedException e){	
 				}	
 				puntosGenerales+=puntos;
-				cargaSiguientePregunta();
+				//cargaSiguientePregunta();
 			}
 		});
 		bt4.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if(respcorrecta==3)
+				if(respcorrecta==3){
 					bt4.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-				else
+					acierto();
+				}else{
 					bt4.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
-				tiempo=false;
+					fallo();
+				}
+					tiempo=false;
 				try{
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				}catch(InterruptedException e){	
 				}	
 				puntosGenerales+=puntos;
-				cargaSiguientePregunta();
+				//cargaSiguientePregunta();
 			}
 		});
 	}
@@ -144,6 +160,8 @@ public class Play extends Activity {
 		@Override
 		protected void onProgressUpdate(Void... values) {
 			barraTiempo.incrementProgressBy(100);
+			
+			
 		}
 		
 		@Override
@@ -186,7 +204,8 @@ public class Play extends Activity {
 	private void cargaSiguientePregunta(){
 		this.puntos=2000;
 		this.tiempo=true;
-		String listarespuestas[];	//creo un array con las preguntas	
+		String listarespuestas[];	//creo un array con las preguntas
+		System.out.println();
 		Question q;
 		
 		q = preguntas.get(posicion);//devuelve la posicion del num de pregunta
@@ -204,12 +223,113 @@ public class Play extends Activity {
 		bt4.getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
 		
 		respcorrecta = q.getRightAnswer();//le digo cual es la respuesta correcta
-		
+		System.out.println(listarespuestas.length );
 		hilo = new HiloProgreso();
 		hilo.execute();
 		
 		posicion++;
 		
 	}
+	
+	
+	public void acierto(){
+		
+		String mensaje;
+		
+		if(posicion == preguntas.size())
+			mensaje = "Has acertado!!! Se ha finalizado el juego";
+		else
+			mensaje = "Has acertado!!! Siguiente pregunta, ¿Quieres continuar?";
+			
+		dialog = new AlertDialog.Builder(Play.this);
+		dialog.setMessage(mensaje);
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if(!(posicion == preguntas.size())){
+					
+					//posicion++; 
+	    	  		cargaSiguientePregunta();
+					
+					}else{
+						
+						Intent data = new Intent();
+						setResult(RESULT_OK, data);
+		    			finish();
+					}
+				}
+		});
+		
+		if(posicion != preguntas.size()){
+			
+			dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					setResult(RESULT_CANCELED);
+					Play.this.finish();
+					
+				}
+			});
+			
+			}
 
+		dialog.show();
+		
+	}
+	
+	
+public void fallo(){
+		
+		String mensaje;
+		
+		if(posicion == preguntas.size())
+			mensaje = "Has fallado!!! Se ha finalizado el juego";
+		else
+			mensaje = "Has fallado!!! Siguiente pregunta, ¿Quieres continuar?";
+			
+		dialog = new AlertDialog.Builder(Play.this);
+		dialog.setMessage(mensaje);
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if(!(posicion == preguntas.size())){
+					
+					//posicion++; 
+	    	  		cargaSiguientePregunta();
+					
+					}else{
+						
+						Intent data = new Intent();
+						setResult(RESULT_OK, data);
+		    			finish();
+					}
+				}
+		});
+		
+		if(posicion != preguntas.size()){
+			
+			dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					setResult(RESULT_CANCELED);
+					Play.this.finish();
+					
+				}
+			});
+			
+			}
+
+		dialog.show();
+		
+	}
+	
+	
+	
+	
 }
