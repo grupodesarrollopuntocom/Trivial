@@ -75,6 +75,7 @@ public class Play extends Activity {
 					acierto();
 				}else{
 					bt1.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+					//pintaAcierto(respcorrecta);
 					fallo();
 				}
 				tiempo=false;
@@ -95,6 +96,7 @@ public class Play extends Activity {
 					acierto();
 				}else{
 					bt2.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+					//pintaAcierto(respcorrecta);
 					fallo();
 				}
 					tiempo=false;
@@ -116,6 +118,7 @@ public class Play extends Activity {
 					acierto();
 				}else{
 					bt3.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+					//pintaAcierto(respcorrecta);
 					fallo();
 				}
 					tiempo=false;
@@ -135,6 +138,7 @@ public class Play extends Activity {
 					acierto();
 				}else{
 					bt4.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+					//pintaAcierto(respcorrecta);
 					fallo();
 				}
 					tiempo=false;
@@ -230,7 +234,34 @@ public class Play extends Activity {
 		posicion++;
 		
 	}
-	
+	/*
+	private void pintaAcierto(int respcorrecta){
+		switch(respcorrecta){
+			case 1:		
+				bt1.setBackgroundColor(Color.GREEN);			
+				break;	
+		
+			case 2:
+				bt2.setBackgroundColor(Color.GREEN);
+				break;
+			
+			case 3:
+				bt3.setBackgroundColor(Color.GREEN);
+				break;
+				
+			case 4:
+				bt4.setBackgroundColor(Color.GREEN);
+				break;				
+		}		
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	*/
 	
 	public void acierto(){
 		
